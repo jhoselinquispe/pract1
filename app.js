@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import mustacheExpress from "mustache-express";
 import indexRouter from "./routes/routes.js";
+import fileUpload from "express-fileupload";
+import dotenv from "dotenv";
 const __dirname = "./";
 var app = express();
 

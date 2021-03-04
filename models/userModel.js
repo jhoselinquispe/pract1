@@ -6,7 +6,7 @@ class UserModel {
     var roles = new RolesModel();
     this.Schema = mongoose.Schema;
     this.UserSchema = new this.Schema({
-      name: String,
+      nombre: String,
       lastname: String,
       email: {
         type: String,
@@ -38,14 +38,12 @@ class UserModel {
   C. create
   */
   createUser(name, lastname, email, password, registerdate, age) {
-    var user = {
-      name,
-      lastname,
-      email,
-      password,
-      registerdate,
-      age,
-      roles: [],
+    
+      const user={
+        foto:String,
+        nombre:String,
+        email:String,
+        password:String
     };
     var newuser = new this.mymodel(user);
     // aqui viene la validacion
@@ -64,7 +62,11 @@ class UserModel {
   /* 
   R. read
   */
-  getUsers() {
+  getUsers(filter) {
+    var filter ={};
+    if (filterdata != null){
+      filter = filterdata;
+    }
     return new Promise((resolve, reject) => {
       this.mymodel.find({}, (err, docs) => {
         if (err) {
@@ -114,6 +116,7 @@ class UserModel {
   }
   async checkEmaildb(email) {
     var result = await this.mymodel.find({ email: email });
+    console.log(result);
     if (result.length > 0) {
       return true;
     }

@@ -7,7 +7,7 @@ class UserController {
   //services
   async createUser(request, response) {
     var data = request.body;
-    if (USER.checkEmaildb(data.email)) {
+    if (!USER.checkEmaildb(data.email)) {
       response
         .status(200)
         .json({ serverResponse: "El email ya esta registrado" });
@@ -17,7 +17,7 @@ class UserController {
       data.name,
       data.lastname,
       data.email,
-      data.password,
+      Sha1(data.password),
       new Date(),
       data.age
     );

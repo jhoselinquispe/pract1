@@ -1,10 +1,29 @@
 import UserModel from "../models/userModel.js";
+import Sha1 from "sha1";
+import JsonWebTokenManagment from "../middleware/JsonWebTokenManagement.js";
 var USER = new UserModel();
+var Jsonwebtoken = new JsonWebTokenManagment();
 class IndexController {
   constructor() {}
   //services
   index(request, response) {
     response.status(200).json({ msn: "Api Test v. 2.0" });
+  }
+  login(request, response){
+    const body = request.body;
+    //validacion.
+    let filter ={email: body.email, password:Sha1(body.password)}
+    let list = USER.getUsers({});
+    if (list.length ==1){
+      let jsonwebdata ={ email: list[0].email, id: list[0].id}
+      console.log(jsonwebdata);
+      let token = Jsonwebtoken.sign(jsonwebdata);
+      response.status(200).json({ token});
+      return;
+    }
+    response
+    .status(200)
+    .json({ serveResponse: "El password o correo son incorrectos"});
   }
 }
 export default IndexController;

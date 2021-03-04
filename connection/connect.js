@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
-mongoose.connect("mongodb://172.31.0.2:27017/restorant", {
+import dotenv from "dotenv";
+dotenv.config();
+mongoose.connect (`mongodb://${process.env.IPHOSTDB}:${process.env.PORTDB}/${process.env.NAMEDB}`, {
   useNewUrlParser: true,
 });
 var db = mongoose.connection;

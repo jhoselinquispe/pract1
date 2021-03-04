@@ -12,6 +12,7 @@ var rolesController = new RolesController();
  * // Servicios de los usuarios
  */
 router.get("/", indexControler.index);
+router.post("/login", indexControler.login);
 router.get("/user", userController.getUsers);
 router.post("/user", userController.createUser);
 router.put("/user/:id", userController.updateUser);
